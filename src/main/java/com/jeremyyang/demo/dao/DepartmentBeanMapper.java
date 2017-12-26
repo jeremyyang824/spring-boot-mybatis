@@ -2,6 +2,8 @@ package com.jeremyyang.demo.dao;
 
 import com.jeremyyang.demo.entity.DepartmentBean;
 
+import java.util.List;
+
 public interface DepartmentBeanMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface DepartmentBeanMapper {
     int updateByPrimaryKeySelective(DepartmentBean record);
 
     int updateByPrimaryKey(DepartmentBean record);
+
+    List<DepartmentBean> getAll();
 }

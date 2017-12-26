@@ -68,4 +68,10 @@
       departmentName = #{departmentname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAll" resultMap="BaseResultMap"  >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM department
+  </select>
 </mapper>
