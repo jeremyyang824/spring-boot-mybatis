@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jeremyyang.demo.dao.UserDao">
+
+    <resultMap id="BaseResultMap" type="com.jeremyyang.demo.entity.UserBean">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="lastLoginTime" property="lastLoginTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, password, lastLoginTime
+    </sql>
+
+    <select id="getAll" resultMap="BaseResultMap"  >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+    </select>
+
+    <select id="findByPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+    </select>
+
+    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.jeremyyang.demo.entity.UserBean" >
+        INSERT INTO user (name, password, lastLoginTime)
+        VALUES (#{name}, #{password}, #{lastLoginTime})
+    </insert>
+
+    <update id="update" parameterType="com.jeremyyang.demo.entity.UserBean" >
+        UPDATE user
+        SET
+        <if test="name != null">name = #{name},</if>
+        <if test="password != null">password = #{password},</if>
+        lastLoginTime = #{lastLoginTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long" >
+        DELETE FROM user WHERE id =#{id}
+    </delete>
+
+</mapper>

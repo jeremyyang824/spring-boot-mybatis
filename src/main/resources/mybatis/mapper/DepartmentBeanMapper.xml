@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeremyyang.demo.dao.DepartmentBeanMapper">
+  <resultMap id="BaseResultMap" type="com.jeremyyang.demo.entity.DepartmentBean">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="departmentCode" jdbcType="VARCHAR" property="departmentcode" />
+    <result column="departmentName" jdbcType="VARCHAR" property="departmentname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, departmentCode, departmentName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jeremyyang.demo.entity.DepartmentBean">
+    insert into department (id, departmentCode, departmentName
+      )
+    values (#{id,jdbcType=INTEGER}, #{departmentcode,jdbcType=VARCHAR}, #{departmentname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jeremyyang.demo.entity.DepartmentBean">
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="departmentcode != null">
+        departmentCode,
+      </if>
+      <if test="departmentname != null">
+        departmentName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="departmentcode != null">
+        #{departmentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentname != null">
+        #{departmentname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jeremyyang.demo.entity.DepartmentBean">
+    update department
+    <set>
+      <if test="departmentcode != null">
+        departmentCode = #{departmentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentname != null">
+        departmentName = #{departmentname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jeremyyang.demo.entity.DepartmentBean">
+    update department
+    set departmentCode = #{departmentcode,jdbcType=VARCHAR},
+      departmentName = #{departmentname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
